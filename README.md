@@ -36,6 +36,15 @@ All commands follow the `$X...*` syntax.
 | **`$Exxxx*`** | Register Pair | Hardware Toggles (see below) | `$E3232*` |
 
 * * *
+Buttons
+-------
+*   **`$U*`**: Button Up
+*   **`$D*`**: Button Down
+*   **`$L*`**: Button Left
+*   **`$R*`**: Button Right
+*   **`$S*`**: Button ENT
+*   **`$N*`**: Button MODE
+* * *
 
 🏗 Hardware Registers (\$E)
 ---------------------------
