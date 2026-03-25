@@ -49,12 +49,12 @@ Buttons
 🏗 Hardware Registers (\$E)
 ---------------------------
 
-The device uses register pairs for switching. **Even** values usually turn a feature **ON**, **Odd** values turn it **OFF**.
+The device uses register pairs for switching.
 
 *   **`$E3232*` / `$E3333*`**: System Beeper (On/Off)
-*   **`$E3434*` / `$E3535*`**: Channel 1 (BNC) Output
-*   **`$E3636*` / `$E3737*`**: Channel 2 (SMA) Output
-*   **`$E3838*` / `$E3939*`**: Internal Modulation
+*   **`$E3434*` / `$E3535*`**: Channel 1 (BNC) Output (On/Off)
+*   **`$E3636*` / `$E3737*`**: Channel 2 (SMA) Output (On/Off)
+*   **`$E3838*` / `$E3939*`**: Internal Modulation (On/Off)
 
 * * *
 
