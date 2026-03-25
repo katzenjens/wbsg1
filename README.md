@@ -31,7 +31,7 @@ All commands follow the `$X...*` syntax.
 | **`$F[K][Hz]*`** | K=Channel (1/2), Hz=10 digits | Set static frequency 1=BNC, 2=SMA | `$F20100000000*` (100MHz) |
 | **`$W[K][S][E][St]*`** | K=ID (3/4), S=Start, E=End, St=Steps | Start Frequency Sweep 3=BNC, 4=SMA | `$W4...*` |
 | **`$CX*`** | X = 0 to 7 | **LCD Contrast** (0=Light, 7=Dark) | `$C3*` |
-| **`$B[Bd]*`** | Bd = Baudrate | Change Serial Speed (volatile) | `$B115200*` |
+| **`$B[Bd]*`** | Bd = Baudrate 6 Digits | Change Serial Speed (volatile) | `$B115200*` |
 | **`$S*`** | None | Save settings to EEPROM | `$S*` |
 | **`$Exxxx*`** | Register Pair | Hardware Toggles (see below) | `$E3232*` |
 
