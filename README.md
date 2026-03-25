@@ -13,7 +13,7 @@ Default connection parameters for the internal USB-to-Serial (FTDI) interface:
 *   **Parity:** `None`
 *   **Stop bits:** `1`
 *   **Flow Control:** `None`
-*   **Line Ending:** `CR+LF` (`\r\n`)
+*   **Line Ending:**  `*` 
 
 * * *
 
