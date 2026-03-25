@@ -27,7 +27,6 @@ All commands follow the `$X...*` syntax.
 
 | Command | Parameter | Description | Example |
 | --- | --- | --- | --- |
-| **`$V*`** | None | Get firmware version | `$V*` |
 | **`$A*`** | None | Get system status (Freq, Lock, etc.) | `$A*` |
 | **`$F[K][Hz]*`** | K=Channel (1/2), Hz=10 digits | Set static frequency | `$F20100000000*` (100MHz) |
 | **`$W[K][S][E][St]*`** | K=ID, S=Start, E=End, St=Steps | Start Frequency Sweep | `$W4...*` |
