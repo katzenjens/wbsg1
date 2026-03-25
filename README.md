@@ -78,7 +78,7 @@ When a sweep is active, the device often ignores static frequency commands (`$F`
 3\. Baudrate Handshake
 ----------------------
 
-Baudrate changes via `$B` are immediate but not permanent until `$S*` is sent.
+Baudrate changes via `$B` are immediate but not permanent.
 
 *   **Pro-Tip:** If the connection is lost after `$B`, power-cycle the device to return to the 9600 baud safety net.
 
