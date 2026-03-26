@@ -118,11 +118,6 @@ CH2:35MHz-8GHz\<\\r\>\<\\n\>
 
 BG7TBL V20250104\<\\r\>\<\\n\>
 
-## Response:
-This is the "Holy Grail" for the parser! The `$A*` command is perfect because it gives us a complete snapshot of the device state in a single string. It’s also interesting to see the "Power On" message, as it provides the specific firmware version (**V20250104**).
-
-Here is the updated Markdown section to add to your `examples.md`:
-
 * * *
 
 ℹ️ Status & System Information
