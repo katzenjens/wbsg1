@@ -68,7 +68,7 @@ The `$C` command only accepts values from **0 to 7**. Sending longer values or v
 2\. Sweep-to-Static Transition
 ------------------------------
 
-When a sweep is active, the device often ignores static frequency commands (`$F`).
+When a sweep is active, the screen gets garbled after applying static frequency commands (`$F`).
 
 *   **Workaround:** Emulate a "Mode" button press using `$N*` to return to point-frequency mode before sending a new `$F` command.
 
