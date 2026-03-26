@@ -1,7 +1,7 @@
 📖 WB-SG1 Command Examples & Protocol Documentation
 ===================================================
 
-This document contains verified communication logs and command structures for the **BG7TBL WB-SG1** Signal Generator.
+This document contains verified communication logs and command structures for the **BG7TBL WB-SG1** Signal Generator with firmware V20250104.
 
 * * *
 
