@@ -13,7 +13,7 @@ Set Frequency CH1 (BNC)
 
 *   **Input:** `$F10100000000*` (e.g., 10 MHz)
 *   **Output:** `CH1 0010000000Hz FOK<\r><\n>`
-*   **Valid Range:** 1 Hz to 200 MHz
+*   **Valid Range:** 1 Hz to 250 MHz
 *   **Scaling:** 9 digits = frequency in **Hz**.
 *   **Note:** Output always includes a leading zero.
 
