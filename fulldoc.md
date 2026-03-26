@@ -131,6 +131,5 @@ BG7TBL V20250104<\r><\n>
 
 *   **Model Identification:** `WB-SG1-8G SSG`
 *   **Firmware Version:** `V20250104` (Date-based versioning)
-*   **Hardware Specs:** Confirms the max frequency for CH1 is actually listed as 250MHz here, even though the command range was noted as 200MHz.
 
 * * *
