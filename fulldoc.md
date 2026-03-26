@@ -97,29 +97,6 @@ The Baud Rate command is unique because it provides **no feedback**.
 
 * * *
 
-This should be a perfect fit for your repository. Once you've uploaded this to GitHub, would you like me to start drafting the **Python Serial Wrapper** that handles these specific scaling and display-reset quirks?
-
-## Prompt:
-At last, how to read status infos from the device:
-
-Input: \$A\*
-
-Output: SYS STATE:CH1 0010000000Hz,OUT ON,CH2 08000000000Hz,OUT ON,MOD OFF,PLL LOCK,REF INT,BAUARD 0000009600 BPS,AOK\<\\r\>\<\\n\>
-
-Message after Power On:
-
-\<\\r\>\<\\n\>
-
-WB-SG1-8G SSG \<\\r\>\<\\n\>
-
-CH1:1Hz-250MHz\<\\r\>\<\\n\>
-
-CH2:35MHz-8GHz\<\\r\>\<\\n\>
-
-BG7TBL V20250104\<\\r\>\<\\n\>
-
-* * *
-
 ℹ️ Status & System Information
 ------------------------------
 
