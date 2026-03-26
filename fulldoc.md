@@ -37,7 +37,7 @@ Set Sweep CH1 (BNC)
 *   **Input:** `$W3[Start][Stop][Steps]*`
     *   _Example:_ `$W3123456789123466789123456789*` (9 digits each)
 *   **Output:** `CH1 STAR:0123456789Hz STOP:0123466789Hz POINT:0123456789 WOK<\r><\n>`
-*   **Valid Range:** 1 Hz to 200 MHz
+*   **Valid Range:** 1 Hz to 250 MHz
 *   **Scaling:** Hz
 
 > \[!IMPORTANT\] **Display Fix:** Before sending a new frequency command, send `$N*` **twice** to prevent display corruption.
