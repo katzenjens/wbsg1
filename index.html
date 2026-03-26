@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WB-SG1-8G Lab Dashboard v1.7</title>
+    <style>
+        :root { --bg: #0d0d0d; --panel: #161616; --ch1: #00ff66; --ch2: #ffcc00; --text: #eee; }
+        
+        /* Global selection enabled for logs */
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        
+        /* Disable selection only for UI controls to prevent accidental highlighting */
+        .knob, .btn, .switch, .sys-group, h3 { user-select: none; -webkit-user-select: none; }
+
+        #header { width: 100%; padding: 8px 20px; background: #222; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #333; box-sizing: border-box; position: sticky; top: 0; z-index: 100; gap: 15px; }
+        .sys-group { display: flex; align-items: center; gap: 12px; background: #2a2a2a; padding: 5px 12px; border-radius: 6px; border: 1px solid #333; }
+        .sys-label { font-size: 0.7rem; color: #888; text-transform: uppercase; }
+
+        .grid { display: grid; grid-template-columns: repeat(2, 420px); gap: 15px; padding: 20px; }
+        .card { background: var(--panel); border: 1px solid #333; border-radius: 8px; padding: 15px; display: flex; flex-direction: column; position: relative; }
+        .ch1-ui { border-top: 3px solid var(--ch1); }
+        .ch2-ui { border-top: 3px solid var(--ch2); }
+        h3 { margin: 0 0 12px 0; font-size: 0.85rem; letter-spacing: 1px; color: #888; text-transform: uppercase; border-bottom: 1px solid #222; padding-bottom: 5px; }
+        
+        .display { background: #000; padding: 10px; font-family: 'Courier New', monospace; font-size: 1.6rem; border-radius: 4px; text-align: center; margin-bottom: 12px; border: 1px solid #222; min-height: 2.2rem; }
+        .ch1-ui .display { color: var(--ch1); text-shadow: 0 0 5px #00ff6644; }
+        .ch2-ui .display { color: var(--ch2); text-shadow: 0 0 5px #ffcc0044; }
+        
+        .vfo-controls { display: flex; align-items: center; justify-content: space-between; gap: 15px; }
+        .knob { width: 100px; height: 100px; background: radial-gradient(circle, #333, #111); border-radius: 50%; border: 3px solid #222; cursor: ns-resize; position: relative; transition: transform 0.1s ease-out; flex-shrink: 0; }
+        .knob::after { content: ''; position: absolute; top: 10px; left: 50%; width: 4px; height: 20px; background: #555; transform: translateX(-50%); border-radius: 2px; }
+
+        .step-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; width: 140px; }
+        .btn { background: #333; color: #ccc; border: 1px solid #444; padding: 5px 8px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; transition: all 0.2s; }
+        .btn:hover { background: #444; color: #fff; }
+        .btn-active { background: #555; color: #fff; border-color: #aaa; }
+        .btn-run { margin-top: 15px; background: #1b5e20; border: none; color: #fff; font-weight: bold; padding: 10px; text-transform: uppercase; }
+        .btn-connect { background: #b71c1c; border: none; color: #fff; padding: 8px 18px; font-weight: bold; }
+
+        /* Log window: Fully selectable and copyable */
+        #log { width: 855px; max-width: 95%; height: 180px; background: #000; color: #00ff00; font-family: 'Consolas', 'Monaco', monospace; font-size: 0.75rem; padding: 12px; border: 1px solid #333; overflow-y: auto; margin-bottom: 20px; border-radius: 4px; display: none; white-space: pre-wrap; word-break: break-all; user-select: text !important; -webkit-user-select: text !important; }
+
+        input[type="range"] { cursor: pointer; height: 6px; background: #444; border-radius: 3px; accent-color: #999; }
+        .switch { position: relative; display: inline-block; width: 34px; height: 18px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider-switch { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #444; transition: .4s; border-radius: 18px; }
+        .slider-switch:before { position: absolute; content: ""; height: 12px; width: 12px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider-switch { background-color: #4527a0; }
+        input:checked + .slider-switch:before { transform: translateX(16px); }
+    </style>
+</head>
+<body>
+
+<div id="header">
+    <div style="font-weight: bold; font-size: 0.9rem;">WB-SG1-8G <span style="color:#666">PRO</span></div>
+    
+    <div class="sys-group">
+        <span class="sys-label">Beeper</span>
+        <label class="switch">
+            <input type="checkbox" onchange="toggleBeeper(this.checked)">
+            <span class="slider-switch"></span>
+        </label>
+    </div>
+
+    <div class="sys-group">
+        <span class="sys-label">Contrast</span>
+        <input type="range" min="0" max="63" value="32" oninput="updateContrast(this.value)">
+        <span id="contrastVal" style="font-size: 0.7rem; min-width: 15px; color:#888; text-align: center;">32</span>
+    </div>
+
+    <div style="display:flex; gap:8px;">
+        <button class="btn" style="background:#444;" id="logToggle" onclick="toggleLog()">🛠 DEBUG LOG</button>
+        <button class="btn" style="background:#311b92; border:none; color:white;" onclick="sendCommand('$N*')">MODE ($N)</button>
+        <button class="btn" onclick="sendCommand('$S*')">SAVE ($S)</button>
+        <button id="connBtn" class="btn btn-connect" onclick="connect()">CONNECT</button>
+    </div>
+</div>
+
+<div class="grid">
+    <div class="card ch1-ui">
+        <h3>CH 1 Frequency Control</h3>
+        <div class="display" id="d1">---,---,--- Hz</div>
+        <div class="vfo-controls">
+            <div class="knob" id="knob1" onwheel="doScroll(event, 1)"></div>
+            <div class="step-grid" id="s1">
+                <button onclick="setStep(1, 1, this)" class="btn">1 Hz</button>
+                <button onclick="setStep(1, 100, this)" class="btn">100 Hz</button>
+                <button onclick="setStep(1, 1000, this)" class="btn">1 kHz</button>
+                <button onclick="setStep(1, 10000, this)" class="btn">10 kHz</button>
+                <button onclick="setStep(1, 100000, this)" class="btn">100 kHz</button>
+                <button onclick="setStep(1, 1000000, this)" class="btn btn-active">1 MHz</button>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:4px;">
+                <button class="btn" onclick="sendCommand('$E3434*')">RF ON</button>
+                <button class="btn" onclick="sendCommand('$E3535*')">RF OFF</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card ch2-ui">
+        <h3>CH 2 Frequency Control</h3>
+        <div class="display" id="d2">-,---,---,--- Hz</div>
+        <div class="vfo-controls">
+            <div class="knob" id="knob2" onwheel="doScroll(event, 2)"></div>
+            <div class="step-grid" id="s2">
+                <button onclick="setStep(2, 10, this)" class="btn">10 Hz</button>
+                <button onclick="setStep(2, 1000, this)" class="btn">1 kHz</button>
+                <button onclick="setStep(2, 100000, this)" class="btn">100 kHz</button>
+                <button onclick="setStep(2, 1000000, this)" class="btn btn-active">1 MHz</button>
+                <button onclick="setStep(2, 10000000, this)" class="btn">10 MHz</button>
+                <button onclick="setStep(2, 100000000, this)" class="btn">100 MHz</button>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:4px;">
+                <button class="btn" onclick="sendCommand('$E3636*')">RF ON</button>
+                <button class="btn" onclick="sendCommand('$E3737*')">RF OFF</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card ch1-ui">
+        <h3>CH 1 Sweep Control</h3>
+        <div class="sweep-inputs">
+            <div class="sweep-group"><label>Start (Hz)</label><input type="number" id="w1s" value="10000000"></div>
+            <div class="sweep-group"><label>Stop (Hz)</label><input type="number" id="w1e" value="100000000"></div>
+            <div class="sweep-group" style="grid-column: span 2;"><label>Step (Hz)</label><input type="number" id="w1step" value="1000"></div>
+        </div>
+        <button class="btn btn-run" onclick="runSweep(1)">▶ Start Sweep CH1</button>
+    </div>
+
+    <div class="card ch2-ui">
+        <h3>CH 2 Sweep Control</h3>
+        <div class="sweep-inputs">
+            <div class="sweep-group"><label>Start (Hz)</label><input type="number" id="w2s" value="100000000"></div>
+            <div class="sweep-group"><label>Stop (Hz)</label><input type="number" id="w2e" value="500000000"></div>
+            <div class="sweep-group" style="grid-column: span 2;"><label>Step (Hz)</label><input type="number" id="w2step" value="10000"></div>
+        </div>
+        <button class="btn btn-run" onclick="runSweep(2)">▶ Start Sweep CH2</button>
+    </div>
+</div>
+
+<div id="log"></div>
+
+<script>
+    let port, writer, t, step1 = 1000000, step2 = 1000000;
+    let f1 = 10000000, f2 = 100000000;
+    let receivedBuffer = "";
+
+    async function connect() {
+        if (!("serial" in navigator)) return alert("Web Serial not supported!");
+        try {
+            port = await navigator.serial.requestPort();
+            await port.open({ baudRate: 9600 });
+            writer = port.writable.getWriter();
+            document.getElementById('connBtn').innerText = "✅ ONLINE";
+            document.getElementById('connBtn').style.background = "#2e7d32";
+            log("System: Connection established.");
+            
+            // Ask for status
+            setTimeout(() => sendCommand('$A*'), 1000);
+            readLoop();
+        } catch (e) { log("Error: " + e.message); }
+    }
+
+    async function sendCommand(cmd) {
+        if (!writer) return;
+        await writer.write(new TextEncoder().encode(cmd));
+        log("TX -> " + cmd);
+    }
+
+    function toggleBeeper(on) { sendCommand(on ? '$E3232*' : '$E3333*'); }
+
+    let cT;
+    function updateContrast(val) {
+        document.getElementById('contrastVal').innerText = val;
+        clearTimeout(cT);
+        cT = setTimeout(() => {
+            sendCommand(`$C${val.toString().padStart(2, '0')}*`);
+        }, 150);
+    }
+
+    function toggleLog() {
+        const l = document.getElementById('log');
+        const b = document.getElementById('logToggle');
+        l.style.display = (l.style.display === 'block') ? 'none' : 'block';
+        b.style.background = (l.style.display === 'block') ? '#00ff00' : '#444';
+        b.style.color = (l.style.display === 'block') ? '#000' : '#fff';
+    }
+
+    function setStep(ch, val, btn) {
+        if (ch === 1) step1 = val; else step2 = val;
+        btn.parentElement.querySelectorAll('.btn').forEach(b => b.classList.remove('btn-active'));
+        btn.classList.add('btn-active');
+    }
+
+    function formatHz(n) { return n.toLocaleString('en-US').padStart(11, '0'); }
+
+    function doScroll(e, ch) {
+        e.preventDefault();
+        const dir = e.deltaY < 0 ? 1 : -1;
+        if (ch === 1) {
+            f1 = Math.max(1, Math.min(250000000, f1 + (dir * step1)));
+            document.getElementById('d1').innerText = formatHz(f1) + " Hz";
+            sync(1, f1);
+        } else {
+            f2 = Math.max(35000000, Math.min(8000000000, f2 + (dir * step2)));
+            f2 = Math.round(f2 / 10) * 10;
+            document.getElementById('d2').innerText = formatHz(f2).padStart(13, '0') + " Hz";
+            sync(2, f2);
+        }
+        const k = document.getElementById('knob' + ch);
+        const r = parseInt(k.getAttribute('data-r') || 0) + (dir * 15);
+        k.style.transform = `rotate(${r}deg)`;
+        k.setAttribute('data-r', r);
+    }
+
+    function sync(ch, val) {
+        clearTimeout(t);
+        t = setTimeout(async () => {
+            let s = (ch === 1) ? val.toString() : Math.floor(val/10).toString();
+            await sendCommand(`$F${ch}${s.padStart(9, '0')}*`);
+        }, 120);
+    }
+
+    async function runSweep(ch) {
+        const start = parseInt(document.getElementById(`w${ch}s`).value);
+        const stop = parseInt(document.getElementById(`w${ch}e`).value);
+        const step = parseInt(document.getElementById(`w${ch}step`).value);
+        const kid = (ch === 1) ? '3' : '4';
+        let sS = (ch === 1) ? start.toString() : Math.floor(start/10).toString();
+        let eS = (ch === 1) ? stop.toString() : Math.floor(stop/10).toString();
+        await sendCommand(`$W${kid}${sS.padStart(9, '0')}${eS.padStart(9, '0')}${step.toString().padStart(9, '0')}*`);
+    }
+
+    async function readLoop() {
+        const reader = port.readable.getReader();
+        while (true) {
+            try {
+                const { value, done } = await reader.read();
+                if (done) break;
+                const chunk = new TextDecoder().decode(value);
+                receivedBuffer += chunk;
+                log("RX <- " + chunk);
+                parseIncomingData();
+            } catch (e) { break; }
+        }
+    }
+
+    function parseIncomingData() {
+        // More robust Regex: Finds "CH1" then any chars then digits then "Hz"
+        const ch1Match = receivedBuffer.match(/CH1\D+(\d+)\s*Hz/i);
+        if (ch1Match) {
+            f1 = parseInt(ch1Match[1]);
+            document.getElementById('d1').innerText = formatHz(f1) + " Hz";
+            receivedBuffer = receivedBuffer.replace(ch1Match[0], "[SYNCED]");
+        }
+        
+        const ch2Match = receivedBuffer.match(/CH2\D+(\d+)\s*Hz/i);
+        if (ch2Match) {
+            f2 = parseInt(ch2Match[1]);
+            document.getElementById('d2').innerText = formatHz(f2).padStart(13, '0') + " Hz";
+            receivedBuffer = receivedBuffer.replace(ch2Match[0], "[SYNCED]");
+        }
+        
+        if (receivedBuffer.length > 2000) receivedBuffer = receivedBuffer.substring(1000);
+    }
+
+    function log(m) {
+        const l = document.getElementById('log');
+        l.innerText += "\n" + m;
+        l.scrollTop = l.scrollHeight;
+    }
+</script>
+</body>
+</html>
