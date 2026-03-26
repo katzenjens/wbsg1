@@ -27,7 +27,7 @@ All commands follow the `$X...*` syntax.
 | **`$A*`** | None | Get system status (Freq, Lock, etc.) | `$A*` |
 | **`$F[K][Hz]*`** | K=Channel (1/2), Hz=9 digits | Set static frequency 1=BNC, 2=SMA | `$F20100000000*` (100MHz) |
 | **`$W[K][S][E][St]*`** | K=ID (3/4), S=Start, E=End, St=Steps | Start Frequency Sweep 3=BNC, 4=SMA | `$W4...*` |
-| **`$CX*`** | X = 0 to 7 | **LCD Contrast** (0=Light, 7=Dark) | `$C3*` |
+| **`$CX*`** | X = 0 to 6 | **LCD Contrast** (0=Light, 6=Dark) | `$C3*` |
 | **`$B[Bd]*`** | Bd = Baudrate 6 Digits | Change Serial Speed (volatile) | `$B115200*` |
 | **`$S*`** | None | Save settings to EEPROM | `$S*` |
 | **`$Exxxx*`** | Register Pair | Hardware Toggles (see below) | `$E3232*` |
@@ -61,7 +61,7 @@ The device uses register pairs for switching.
 1\. The Contrast "Whiteout"
 ---------------------------
 
-The `$C` command only accepts values from **0 to 7**. Sending longer values or values outside this range can cause the LCD to overflow and turn completely white.
+The `$C` command only accepts values from **0 to 6**. Sending longer values or values outside this range can cause the LCD to overflow and turn completely white.
 
 *   **Recovery:** Send `$C3*` followed by `$S*` blindly via terminal.
 
