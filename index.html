@@ -1,8 +1,10 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>WB-SG1-8G Lab Dashboard v1.7</title>
+    <title>WB-SG1-8G Lab Dashboard v1.8</title>
     <style>
         :root { --bg: #0d0d0d; --panel: #161616; --ch1: #00ff66; --ch2: #ffcc00; --text: #eee; }
         
@@ -52,12 +54,20 @@
 <body>
 
 <div id="header">
-    <div style="font-weight: bold; font-size: 0.9rem;">WB-SG1-8G <span style="color:#666">PRO</span></div>
+    <div style="font-weight: bold; font-size: 0.9rem;">WB-SG1-8G Web Front End v 1.8</span></div>
     
     <div class="sys-group">
         <span class="sys-label">Beeper</span>
         <label class="switch">
             <input type="checkbox" onchange="toggleBeeper(this.checked)">
+            <span class="slider-switch"></span>
+        </label>
+    </div>
+
+    <div class="sys-group">
+        <span class="sys-label">Modulation</span>
+        <label class="switch">
+            <input type="checkbox" onchange="toggleMod(this.checked)">
             <span class="slider-switch"></span>
         </label>
     </div>
@@ -70,8 +80,8 @@
 
     <div style="display:flex; gap:8px;">
         <button class="btn" style="background:#444;" id="logToggle" onclick="toggleLog()">🛠 DEBUG LOG</button>
-        <button class="btn" style="background:#311b92; border:none; color:white;" onclick="sendCommand('$N*')">MODE ($N)</button>
-        <button class="btn" onclick="sendCommand('$S*')">SAVE ($S)</button>
+        <button class="btn" style="background:#311b92; border:none; color:white;" onclick="sendCommand('$N*')">MODE</button>
+        <button class="btn" onclick="sendCommand('$S*')">SAVE</button>
         <button id="connBtn" class="btn btn-connect" onclick="connect()">CONNECT</button>
     </div>
 </div>
@@ -168,7 +178,7 @@
     }
 
     function toggleBeeper(on) { sendCommand(on ? '$E3232*' : '$E3333*'); }
-
+    function toggleMod(on) { sendCommand(on ? '$E3838*' : '$E3939*'); }
     let cT;
     function updateContrast(val) {
         document.getElementById('contrastVal').innerText = val;
@@ -270,5 +280,6 @@
         l.scrollTop = l.scrollHeight;
     }
 </script>
+<br><a href="https://github.com/katzenjens/wbsg1" target="_blank">by katzenjens 2026</a>
 </body>
 </html>
