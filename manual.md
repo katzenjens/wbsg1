@@ -56,6 +56,7 @@ Device Compatibility
 --------------------
 
 *   This frontend works on all devices with a USB interface running a Chrome-based browser.
+*   FTDI USB drivers may have to be installed manually.
 *   **Android Devices:** Requires a mouse; touch input is currently not supported for the rotary knobs.
 *   **Support:** If you encounter bugs, please open an **Issue** on the GitHub repository.
 
