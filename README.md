@@ -64,7 +64,7 @@ The device uses register pairs for switching.
 1\. The Contrast "Whiteout"
 ---------------------------
 
-The `$C` command only accepts values from **00 to 64**. Sending longer values or values outside this range can cause the LCD to overflow and turn completely white.
+The `$C` command only accepts values from **00 to 63**. Sending longer values or values outside this range can cause the LCD to overflow and turn completely white.
 
 *   **Recovery:** Send `$C45*` blindly via terminal.
 
