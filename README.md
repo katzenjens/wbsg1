@@ -4,6 +4,8 @@ NEW: Plug-N-Play your WB-SG1 with [katzenjens.github.io/wbsg1/](https://katzenje
 
 This repository contains the reverse-engineered serial protocol for the **BG7TBL WB-SG1-8G** (1Hz - 8GHz) wideband signal generator. Since official documentation is scarce, this community-driven guide aims to help developers and radio amateurs automate their devices.
 
+If anyone has more findings, please forward them to me. I will add them.
+
 🔌 Connection Settings
 ----------------------
 
