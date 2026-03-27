@@ -87,7 +87,7 @@ Baudrate changes via `$B` are immediate but not permanent.
 🌐 Web Controller
 -----------------
 
-**Features (v1.7)**
+**Features (v1.8)**
 -------------------
 
 *   **Dual Channel VFO:** Independent control for CH1 (1 Hz – 250 MHz) and CH2 (35 MHz – 8 GHz).
@@ -95,7 +95,7 @@ Baudrate changes via `$B` are immediate but not permanent.
     *   **CH2:** 10 Hz, 1 kHz, 100 kHz, 1 MHz, 10 MHz, 100 MHz.
 *   **Automatic Sync:** Upon connection, the app automatically queries the device via `$A*` and synchronizes the display with the current hardware frequency.
 *   **Full Sweep Support:** Dedicated controls for `$W3` (CH1) and `$W4` (CH2) with 9-digit precision.
-*   **System Controls:** On-the-fly adjustment of LCD contrast (00-63), beeper toggle, and EEPROM saving (`$S*`).
+*   **System Controls:** On-the-fly adjustment of LCD contrast (00-63), beeper toggle, modulation toggle and EEPROM saving (`$S*`).
 *   **Debug Log:** Built-in terminal to monitor RX/TX traffic (selectable/copyable for troubleshooting).
 
 * * *
