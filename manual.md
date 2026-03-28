@@ -7,7 +7,7 @@ Connectivity & Privacy
 ----------------------
 
 *   **Browser Compatibility:** This interface uses the Web Serial API and requires a **Chrome-based browser** (Chrome, Edge, Opera).
-*   **Privacy:** The application runs entirely locally in your browser. No data is transmitted to the internet, and no cookies are used.
+*   **Privacy:** The application runs entirely locally in your browser. No data is transmitted to the internet, and no cookies are set.
 *   **Connection:** Click the **"CONNECT"** button to open the system dialog and select the appropriate serial port for your signal generator.
 
 Frequency Control (VFO)
