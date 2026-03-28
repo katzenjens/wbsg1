@@ -25,4 +25,4 @@ BG7TBL WB-SG1 8G Web Front End
 *   **Privacy:** This web page is static. It does not share data with the web. No cookies are set. Everything will stay on the local machine. If in doubt, take a look at `index.html`.
 *   **How does it work?** It uses `CSS`for the user interface and `Javascript`and `Web Serial` to connect with the signal generator. Inside the signal generator is an USB to serial converter type `FTDI`. All current operating systems should be able to connect without issues.
 * * *
-If you would like to build your own interface to this device feel free to use `protocol.md` and `fulldoc.md`.
+If you would like to build your own interface to this device feel free to consult `protocol.md` and `fulldoc.md`.
