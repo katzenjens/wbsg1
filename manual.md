@@ -6,7 +6,7 @@ User Manual: WB-SG1-8G Web Frontend
 Connectivity & Privacy
 ----------------------
 
-*   **Browser Compatibility:** This interface uses the Web Serial API and requires a **Chrome-based browser** (Chrome, Edge, Opera).
+*   **Browser Compatibility:** This interface uses the Web Serial API and requires a browser with web serial capabilities..
 *   **Privacy:** The application runs entirely locally in your browser. No data is transmitted to the internet, and no cookies are set.
 *   **Connection:** Click the **"CONNECT"** button to open the system dialog and select the appropriate serial port for your signal generator.
 
