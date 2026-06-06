@@ -5,7 +5,7 @@ BG7TBL WB-SG1 8G Web Front End
 ---------------
 
 1.  Host `index.html` on any HTTPS-enabled web server (e.g., GitHub Pages) or simply go to https://katzenjens.github.io/wbsg1
-2.  Open the page in a Chrome or Edge browser. **Firefox won't work!**
+2.  Open the page in a browser which supports web serial.
 3.  Click **CONNECT**, select your serial port (Default 9600 Baud), and you're ready to go!
 4.  Read the full manual for the web front end here: https://github.com/katzenjens/wbsg1/blob/main/manual.md
 * * *
